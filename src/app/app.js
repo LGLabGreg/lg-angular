@@ -106,7 +106,9 @@ return Yn})):Mn&&qn?Vn?(qn.exports=Yn)._=Yn:Mn._=Yn:Zn._=Yn}).call(this);
 
 			//App modules
 			'app.config',
-			'app.services',
+			'app.services.lodash',
+			'app.services.helperService',
+			'app.services.apiService',
 			'app.controllers'
 
 			
@@ -199,12 +201,10 @@ angular.module('app.config', [])
 
 .constant('Settings', {
   'API': {
-    'baseURL': 'http://jsonplaceholder.typicode.com',
-    'endpoints':{
-      'posts':{
-        'all': 'posts',
-        'item': 'posts/:id'
-      }
+    'baseURL': 'http://jsonplaceholder.typicode.com/',
+    'posts':{
+      'all': 'posts',
+      'item': 'posts/:id'
     }
   },
   'UI': {
@@ -213,46 +213,70 @@ angular.module('app.config', [])
 });
 
 'use strict';
-angular.module('app.services', [])
-  .service( 'apiService',  function($http, $q, _, $window) {
+angular.module('app.services.apiService', [])
+  .factory('apiService', function($http, $q, _, $window, Settings) {
+
+    console.log('apiService')
 
     var headers = {
       'Content-Type': 'application/json'
     }
 
-    function sendApiRequest(endpoint, method, data){
+    function sendApiRequest(url, method, data) {
 
-        var deferred = $q.defer();
+      var deferred = $q.defer();
 
-        $http({
-            method: method,
-            url: endpoint,
-            headers: headers,
-            data: data
-        }).success(function(data, status, headers) {
-            deferred.resolve(data);
-        }).error(function(err) {
-            console.log('Api Service error: ' + angular.toJson(err));
-            deferred.reject(err);
-        });
+      $http({
+        method: method,
+        url: url,
+        headers: headers,
+        data: data
+      }).success(function(data, status, headers) {
+        deferred.resolve(data);
+      }).error(function(err) {
+        console.log('Api Service error: ' + angular.toJson(err));
+        deferred.reject(err);
+      });
 
-        return deferred.promise;
-        
+      return deferred.promise;
+
+    }
+
+    function buildUrl(path, params) {
+      var url = getUrlValue(Settings.API, path);
+      console.log('url: ' + url)
+      //TODO: handle path not found
+      _.each(params, function(value, key) {
+        url = url.replace(':' + key, value);
+      });
+
+      console.log(Settings.API.baseURL + url)
+
+      return Settings.API.baseURL + url;
+    }
+
+    function getUrlValue(obj, path) {
+      var keys = path.split('.');
+      for(var i=0; i<keys.length; i++){
+        obj = obj[keys[i]];
+
+        if(typeof obj === 'undefined'){
+          return '';
+        }
+      }
+      return obj;
     }
 
 
     // Public methods
     return {
-      sendApiRequest: sendApiRequest
+      sendApiRequest: sendApiRequest,
+      buildUrl: buildUrl
     };
 
   });
-
-
-
-
 'use strict';
-angular.module('app.services', [])
+angular.module('app.services.helperService', [])
   .service( 'helperService',  function() {
 
 
@@ -265,8 +289,9 @@ angular.module('app.services', [])
   });
 
 'use strict';
-angular.module('app.services', [])
+angular.module('app.services.lodash', [])
   .factory( '_',  function($window) {
+    console.log('lodash')
     return $window._;
   });
 
@@ -274,9 +299,13 @@ angular.module('app.services', [])
 'use strict';
 
 angular.module('app.controllers', [])
-  .controller( 'HomeCtrl',  function($scope) {
+  .controller( 'HomeCtrl',  function($scope, _, apiService) {
 
     console.log('HomeCtrl');
+
+    apiService.sendApiRequest(apiService.buildUrl('posts.all'), 'GET').then(function(response){
+      console.log(angular.toJson(response));
+    });//Handle API errors in apiService
 
   });
 

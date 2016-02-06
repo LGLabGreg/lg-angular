@@ -8,7 +8,9 @@
 
 			//App modules
 			'app.config',
-			'app.services',
+			'app.services.lodash',
+			'app.services.helperService',
+			'app.services.apiService',
 			'app.controllers'
 
 			

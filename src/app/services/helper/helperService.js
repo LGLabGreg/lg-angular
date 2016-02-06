@@ -1,5 +1,5 @@
 'use strict';
-angular.module('app.services', [])
+angular.module('app.services.helperService', [])
   .service( 'helperService',  function() {
 
 

@@ -4,12 +4,10 @@ angular.module('app.config', [])
 
 .constant('Settings', {
   'API': {
-    'baseURL': 'http://jsonplaceholder.typicode.com',
-    'endpoints':{
-      'posts':{
-        'all': 'posts',
-        'item': 'posts/:id'
-      }
+    'baseURL': 'http://jsonplaceholder.typicode.com/',
+    'posts':{
+      'all': 'posts',
+      'item': 'posts/:id'
     }
   },
   'UI': {
