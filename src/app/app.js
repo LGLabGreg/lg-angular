@@ -106,10 +106,14 @@ return Yn})):Mn&&qn?Vn?(qn.exports=Yn)._=Yn:Mn._=Yn:Zn._=Yn}).call(this);
 
 			//App modules
 			'app.config',
+
 			'app.services.lodash',
 			'app.services.helperService',
 			'app.services.apiService',
-			'app.controllers'
+			
+			'app.controllers.home',
+			'app.controllers.header',
+			'app.controllers.footer'
 
 			
 		]);
@@ -208,7 +212,15 @@ angular.module('app.config', [])
     }
   },
   'UI': {
-    
+    'header':{
+      'logo':{
+        'url': 'images/logo.png',
+        'alt': 'LGLab Logo'
+      }
+    },
+    'footer':{
+      'copyright': '&copy; 2016 - LGLab'
+    }
   }
 });
 
@@ -291,7 +303,7 @@ angular.module('app.services.lodash', [])
 
 'use strict';
 
-angular.module('app.controllers', [])
+angular.module('app.controllers.home', [])
   .controller( 'HomeCtrl',  function($scope, _, apiService) {
 
     $scope.view = 'all';
@@ -306,6 +318,26 @@ angular.module('app.controllers', [])
         $scope.view = 'detail';
       });
     }
+
+  });
+
+
+'use strict';
+
+angular.module('app.controllers.header', [])
+  .controller( 'HeaderCtrl',  function($scope, _, Settings) {
+
+    $scope.settings = Settings.UI.header;
+
+  });
+
+
+'use strict';
+
+angular.module('app.controllers.footer', [])
+  .controller( 'FooterCtrl',  function($scope, _, Settings) {
+
+    $scope.settings = Settings.UI.footer;
 
   });
 

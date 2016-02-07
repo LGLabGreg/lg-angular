@@ -11,6 +11,14 @@ angular.module('app.config', [])
     }
   },
   'UI': {
-    
+    'header':{
+      'logo':{
+        'url': 'images/logo.png',
+        'alt': 'LGLab Logo'
+      }
+    },
+    'footer':{
+      'copyright': '&copy; 2016 - LGLab'
+    }
   }
 });

@@ -8,10 +8,14 @@
 
 			//App modules
 			'app.config',
+
 			'app.services.lodash',
 			'app.services.helperService',
 			'app.services.apiService',
-			'app.controllers'
+			
+			'app.controllers.home',
+			'app.controllers.header',
+			'app.controllers.footer'
 
 			
 		]);

@@ -24,7 +24,9 @@ module.exports = function(grunt) {
 		'src/app/services/lodash/lodash.js',
 
 		//Controllers
-		'src/app/controllers/home/HomeCtrl.js'
+		'src/app/controllers/home/HomeCtrl.js',
+		'src/app/controllers/header/HeaderCtrl.js',
+		'src/app/controllers/footer/FooterCtrl.js'
 
 		//Directives
 
