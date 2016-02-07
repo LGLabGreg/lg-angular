@@ -22,7 +22,7 @@
             templateUrl: "app/partials/home/home.html",
             controller: "HomeCtrl",
             restricted : false,
-            preload: false
+            preload: true
         })
         .otherwise({ redirectTo: '/404' });
 

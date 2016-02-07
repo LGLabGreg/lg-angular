@@ -107,6 +107,40 @@ button{
 
 /**
 //////////////////////////////
+MAIN PRELOADER
+//////////////////////////////
+**/
+.preloader-wrapper{
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 98;
+	@include invisible();
+	&.visible{
+		@include visible();
+		height: 100%;
+	}
+	.bg{
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background: rgba(#fff, 0.8);
+	}
+	.preloader{
+		@include preloader(40px, 1s, $primary-color, $dark-grey);
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		@include transform(translate(-50%, -50%));
+	}
+}
+
+/**
+//////////////////////////////
 HEADER
 //////////////////////////////
 **/

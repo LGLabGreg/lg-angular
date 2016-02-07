@@ -244,3 +244,115 @@
     width: 100%; 
   }
 }
+
+
+@mixin preloader($width, $speed, $colorStart, $colorEnd){
+  
+  position: relative;
+  width: $width;
+  height: $width;
+  
+  span{
+      display: block;
+      bottom: 0px;
+      width: $width/2;
+      height: $width/2;
+      background: $colorStart;
+      position: absolute;
+  }
+  span:nth-child(1){
+    animation: preloader1 $speed infinite ease-in-out;
+  }
+  span:nth-child(2){
+    left:20px;
+    animation: preloader2 $speed infinite ease-in-out;
+  }
+  span:nth-child(3){
+    top:0px;
+    animation: preloader3 $speed infinite ease-in-out;
+  }
+  span:nth-child(4){
+    top:0px;
+    left:20px;
+    animation: preloader4 $speed infinite ease-in-out;
+  }
+   
+  @keyframes preloader1 {
+      0% {
+        @include transform(translate(0, 0) rotate(0deg));
+        border-radius:0px;
+      }
+      50% {
+        @include transform(translate(-$width/2, -$width/4) rotate(-180deg));
+        border-radius:20px;
+        background:$colorEnd;
+      }
+      80% {
+        @include transform(translate(0, 0) rotate(-360deg));
+        border-radius:0px;
+      }
+      100% {
+        @include transform(translate(0, 0) rotate(-360deg));
+        border-radius:0px;
+      }
+  }
+  @keyframes preloader2 {
+      0% {
+        @include transform(translate(0, 0) rotate(0deg));
+        border-radius:0px;
+      }
+      50% {
+        @include transform(translate($width/2, -$width/4) rotate(180deg));
+        border-radius:20px;
+        background:$colorEnd;
+      }
+      80% {
+        @include transform(translate(0, 0) rotate(360deg));
+        border-radius:0px;
+      }
+      100% {
+        @include transform(translate(0, 0) rotate(360deg));
+        border-radius:0px;
+      }
+  }
+  @keyframes preloader3 {
+      0% {
+        @include transform(translate(0, 0) rotate(0deg));
+        border-radius:0px;
+      }
+      50% {
+        @include transform(translate(-$width/2, $width/4) rotate(-180deg));
+        border-radius:20px;
+        background:$colorEnd;
+      }
+      80% {
+        @include transform(translate(0, 0) rotate(-360deg));
+        border-radius:0px;
+      }
+      100% {
+        @include transform(translate(0, 0) rotate(-360deg));
+        border-radius:0px;
+      }
+  }
+   
+  @keyframes preloader4 {
+      0% {
+        @include transform(translate(0, 0) rotate(0deg));
+        border-radius:0px;
+      }
+      50% {
+        @include transform(translate($width/2, $width/4) rotate(180deg));
+        border-radius:20px;
+        background:$colorEnd;
+      }
+      80% {
+        @include transform(translate(0, 0) rotate(360deg));
+        border-radius:0px;
+      }
+      100% {
+        @include transform(translate(0, 0) rotate(360deg));
+        border-radius:0px;
+      }
+  }
+  
+}
