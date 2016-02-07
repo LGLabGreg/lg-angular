@@ -1,5 +1,5 @@
 # lg-angular
-Base angular framework with Grunt
+Base angular framework with Grunt - This is very basic setup and is for personal use but feel free to use it. It contains a simple apiService, basic route setup and example controller with interaction with the apiService.
 
 ## Requirements
 
