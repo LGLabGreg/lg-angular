@@ -2,8 +2,6 @@
 angular.module('app.services.apiService', [])
   .factory('apiService', function($http, $q, _, $window, Settings) {
 
-    console.log('apiService')
-
     var headers = {
       'Content-Type': 'application/json'
     }
@@ -30,14 +28,10 @@ angular.module('app.services.apiService', [])
 
     function buildUrl(path, params) {
       var url = getUrlValue(Settings.API, path);
-      console.log('url: ' + url)
       //TODO: handle path not found
       _.each(params, function(value, key) {
         url = url.replace(':' + key, value);
       });
-
-      console.log(Settings.API.baseURL + url)
-
       return Settings.API.baseURL + url;
     }
 

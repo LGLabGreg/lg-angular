@@ -216,8 +216,6 @@ angular.module('app.config', [])
 angular.module('app.services.apiService', [])
   .factory('apiService', function($http, $q, _, $window, Settings) {
 
-    console.log('apiService')
-
     var headers = {
       'Content-Type': 'application/json'
     }
@@ -244,14 +242,10 @@ angular.module('app.services.apiService', [])
 
     function buildUrl(path, params) {
       var url = getUrlValue(Settings.API, path);
-      console.log('url: ' + url)
       //TODO: handle path not found
       _.each(params, function(value, key) {
         url = url.replace(':' + key, value);
       });
-
-      console.log(Settings.API.baseURL + url)
-
       return Settings.API.baseURL + url;
     }
 
@@ -291,7 +285,6 @@ angular.module('app.services.helperService', [])
 'use strict';
 angular.module('app.services.lodash', [])
   .factory( '_',  function($window) {
-    console.log('lodash')
     return $window._;
   });
 
@@ -301,11 +294,18 @@ angular.module('app.services.lodash', [])
 angular.module('app.controllers', [])
   .controller( 'HomeCtrl',  function($scope, _, apiService) {
 
-    console.log('HomeCtrl');
+    $scope.view = 'all';
 
     apiService.sendApiRequest(apiService.buildUrl('posts.all'), 'GET').then(function(response){
-      console.log(angular.toJson(response));
+      $scope.posts = response;
     });//Handle API errors in apiService
+
+    $scope.readMore = function(post){
+      apiService.sendApiRequest(apiService.buildUrl('posts.item', {id: post.id}), 'GET').then(function(response){
+        $scope.post = response;
+        $scope.view = 'detail';
+      });
+    }
 
   });
 

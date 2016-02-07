@@ -65,6 +65,7 @@ body{
 
 a,
 a:visited{
+	color: blue;
 	&:hover{
 		text-decoration: underline;
 	}
